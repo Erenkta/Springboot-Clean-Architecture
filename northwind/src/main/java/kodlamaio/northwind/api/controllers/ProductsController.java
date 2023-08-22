@@ -3,11 +3,15 @@ package kodlamaio.northwind.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.northwind.business.abstracts.ProductService;
+import kodlamaio.northwind.core.utilities.results.withData.apiDataResult;
+import kodlamaio.northwind.core.utilities.results.withoutData.apiResult;
 import kodlamaio.northwind.entities.concretes.Product;
 
 @RestController //CRUD işlemlerini gerçekleştireceğimiz controller
@@ -25,7 +29,18 @@ public class ProductsController {
 	}
 
 	@GetMapping("/getall")
-	public List<Product> getAll(){
+	public apiDataResult<List<Product>> getAll(){
 		return this.productService.getAll();
 	}
+	@PostMapping("/add")
+	public apiResult add(Product product) {
+		return this.productService.add(product);
+	}
+	
+	
+	/* 	3 tane bilgi vermeliyiz
+	 * 	data (sadece bu zorunlu değil)
+	 *  işlem sonucu (başarılı-başarısız)
+	 *  mesaj 
+	 * */
 }
