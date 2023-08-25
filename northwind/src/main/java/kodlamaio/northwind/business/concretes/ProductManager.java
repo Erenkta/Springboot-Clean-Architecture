@@ -52,23 +52,23 @@ public class ProductManager implements ProductService{
 
 
 	@Override
-	public apiDataResult<Product> getByProductNameAndCategoryId(String productName, int categoryId) {
+	public apiDataResult<Product> getByProductNameAndCategory(String productName, int categoryId) {
 		return new apiDataSuccessResult<Product>
-		(this.productDao.getByProductNameAndCategoryId(productName, categoryId),getSuccessMessage);
+		(this.productDao.getByProductNameAndCategory_CategoryId(productName, categoryId),getSuccessMessage);
 	}
 
 
 	@Override
-	public apiDataResult<List<Product>> getByProductNameOrCategoryId(String productName, int categoryId) {
+	public apiDataResult<List<Product>> getByProductNameOrCategory(String productName, int categoryId) {
 		return new apiDataSuccessResult<List<Product>>
-		(this.productDao.getByProductNameOrCategoryId(productName, categoryId),getSuccessMessage);
+		(this.productDao.getByProductNameOrCategory_CategoryId(productName, categoryId),getSuccessMessage);
 	}
 
 
 	@Override
-	public apiDataResult<List<Product>> getByCategoryIdIn(List<Integer> categories) {
+	public apiDataResult<List<Product>> getByCategoryIn(List<Integer> categories) {
 		return new apiDataSuccessResult<List<Product>>
-		(this.productDao.getByCategoryIdIn(categories),getSuccessMessage);
+		(this.productDao.getByCategoryIn(categories),getSuccessMessage);
 	}
 
 
@@ -91,5 +91,7 @@ public class ProductManager implements ProductService{
 		return new apiDataSuccessResult<List<Product>>
 		(this.productDao.getByNameAndCategory(productName, categoryId),getSuccessMessage);
 	}
+
+
 
 }

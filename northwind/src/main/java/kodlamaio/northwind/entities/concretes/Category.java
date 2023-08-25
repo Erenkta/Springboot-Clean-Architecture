@@ -2,6 +2,8 @@ package kodlamaio.northwind.entities.concretes;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,11 +16,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Entity
+
 @Data
 @AllArgsConstructor //Bunları eklememiz lazım
 @NoArgsConstructor
 @Table(name="categories")
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","products"}) //Sürekli birbirini çağırmasın diye yani döngüyü engellemek için
 public class Category {
 	
 	@Id
@@ -29,9 +33,9 @@ public class Category {
 	private String categoryName;
 	
 	//İlişki oluşturmak için yazdık normalde tablomuzda yok
-	@OneToMany(mappedBy="categories") //mappedBy ve silinirse falan nolucak diye 2 parametre var //Engin hoca burda table ismi yazdı fakat değişken ismi yazılması gerekmez miydi araştır !!
+	@OneToMany(mappedBy="category") //mappedBy ve silinirse falan nolucak diye 2 parametre var 
 	private List<Product> products;
 	
-	//Burda da sanırım dedik ki burada tuttuğumuz product categories adlı tablo ile OneToMany ilişkisine sahip
+	//Burda da sanırım dedik ki burada tuttuğumuz product category adlı yer ile OneToMany ilişkisine sahip
 	
 }
