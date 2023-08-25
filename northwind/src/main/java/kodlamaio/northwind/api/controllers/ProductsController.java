@@ -3,7 +3,6 @@ package kodlamaio.northwind.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,11 +40,29 @@ public class ProductsController {
 	public apiDataResult<Product> getByProductName(@RequestParam String productName){ //Yapılan Requesteki parametrelere bak ve productName'i al
 		return this.productService.getByProductName(productName);
 	}
-	
-	
-	/* 	3 tane bilgi vermeliyiz
-	 * 	data (sadece bu zorunlu değil)
-	 *  işlem sonucu (başarılı-başarısız)
-	 *  mesaj 
-	 * */
+	@GetMapping("getByProductNameAndCategoryId")
+	public apiDataResult<Product> getByProductNameAndCategory(@RequestParam String productName,@RequestParam int categoryId){ 
+		return this.productService.getByProductNameAndCategory(productName, categoryId);
+	//Eğer sıralamayı yanlış geçerse diye @RequestParam("productName") ve @RequestParam("categoryId") ile direkt eşleyebiliriz
+	}
+	@GetMapping("getByProductNameContains")
+	public apiDataResult<List<Product>> getByProductNameContains(@RequestParam String productName){
+		return this.productService.getByProductNameContains(productName);
+	}
+	@GetMapping("getAllByPage")
+	public apiDataResult<List<Product>> getAllByPage(int pageNo,int pageSize){ //Neden requestParam kullanmadık
+		return this.productService.getAllByPage(pageNo, pageSize);
+	}
+	@GetMapping("getAllDesc")
+	public apiDataResult<List<Product>> getAllSorted(){
+		return this.productService.getAllSorted();
+	}
+
 }
+
+/* 	3 tane bilgi vermeliyiz
+ * 	data (sadece bu zorunlu değil)
+ *  işlem sonucu (başarılı-başarısız)
+ *  mesaj 
+ * */
+

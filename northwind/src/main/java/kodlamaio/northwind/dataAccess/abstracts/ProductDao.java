@@ -11,7 +11,7 @@ import kodlamaio.northwind.entities.concretes.Product;
 public interface ProductDao extends JpaRepository<Product,Integer>{
 	  Product getByProductName(String productName);
 	  
-	  Product getByProductNameAndCategory_CategoryId(String productName, int categoryId);
+	  Product getByProductNameAndCategory_CategoryId(String productName, int categoryId); //Category'den CategoryId'e göre getir demek
 	  
 	  List<Product> getByProductNameOrCategory_CategoryId(String productName, int categoryId);
 	  

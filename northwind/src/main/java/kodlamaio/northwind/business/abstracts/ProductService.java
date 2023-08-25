@@ -8,6 +8,9 @@ import kodlamaio.northwind.entities.concretes.Product;
 
 public interface ProductService {
 	  apiDataResult<List<Product>> getAll();
+	  //Pagination işlemleri için method yazacağız
+	  apiDataResult<List<Product>> getAllByPage(int pageNo,int pageSize);
+	  apiDataResult<List<Product>> getAllSorted();
 
       apiResult add(Product product);
      
@@ -24,6 +27,8 @@ public interface ProductService {
       apiDataResult<List<Product>> getByProductNameStartsWith(String productName);
 
       apiDataResult<List<Product>> getByNameAndCategory(String productName, int categoryId);
+      
+      
       
     
       
