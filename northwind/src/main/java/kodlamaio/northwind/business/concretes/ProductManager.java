@@ -5,6 +5,9 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -90,6 +93,23 @@ public class ProductManager implements ProductService{
 	public apiDataResult<List<Product>> getByNameAndCategory(String productName, int categoryId) {
 		return new apiDataSuccessResult<List<Product>>
 		(this.productDao.getByNameAndCategory(productName, categoryId),getSuccessMessage);
+	}
+
+
+	@Override
+	public apiDataResult<List<Product>> getAllByPage(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize); // bir tane pageable oluşturduk ve buna pageNo ile pageSize'ını verdik parametre olarak //-1 YAPTIK çünkü sayfalama 0'dan başlatıyor karışmasın diye
+		return new apiDataSuccessResult<List<Product>>
+		(this.productDao.findAll(pageable).getContent(), getSuccessMessage); 
+		//burda da findAll()'un overload'larından pageable bir paramtre alan halini kullandık .getContent() ile de List<Product> Döndük
+	}
+
+
+	@Override
+	public apiDataResult<List<Product>> getAllSorted() {
+		Sort sorted = Sort.by(Sort.Direction.DESC,"productName"); //ikinci parametre hangi alana göre listeleneceğini belirler 
+		return new apiDataSuccessResult<List<Product>>
+		(this.productDao.findAll(sorted), getSuccessMessage); //burda da sort alan overload'ını kullanıdık
 	}
 
 
