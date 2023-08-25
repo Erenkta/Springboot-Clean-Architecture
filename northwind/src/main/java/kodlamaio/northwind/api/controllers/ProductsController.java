@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.northwind.business.abstracts.ProductService;
@@ -15,7 +16,7 @@ import kodlamaio.northwind.core.utilities.results.withoutData.apiResult;
 import kodlamaio.northwind.entities.concretes.Product;
 
 @RestController //CRUD işlemlerini gerçekleştireceğimiz controller
-@RequestMapping("/api/products") //Bu adrese gelen requestleri bu controller karşılayacak
+@RequestMapping("/api/products/") //Bu adrese gelen requestleri bu controller karşılayacak
 public class ProductsController {
 	
 	
@@ -28,13 +29,17 @@ public class ProductsController {
 		this.productService = productService;
 	}
 
-	@GetMapping("/getall")
+	@GetMapping("getall")
 	public apiDataResult<List<Product>> getAll(){
 		return this.productService.getAll();
 	}
-	@PostMapping("/add")
+	@PostMapping("add")
 	public apiResult add(Product product) {
 		return this.productService.add(product);
+	}
+	@GetMapping("getByProductName")
+	public apiDataResult<Product> getByProductName(@RequestParam String productName){ //Yapılan Requesteki parametrelere bak ve productName'i al
+		return this.productService.getByProductName(productName);
 	}
 	
 	
