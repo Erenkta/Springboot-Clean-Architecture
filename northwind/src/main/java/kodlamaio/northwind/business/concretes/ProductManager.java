@@ -20,6 +20,7 @@ import kodlamaio.northwind.entities.concretes.Product;
 public class ProductManager implements ProductService{
 
 	private ProductDao productDao;
+	private String getSuccessMessage = "Data başarılı şekilde getirildi";
 	
 	@Autowired
 	public ProductManager(ProductDao productDao) {
@@ -40,6 +41,55 @@ public class ProductManager implements ProductService{
 	public apiResult add(@RequestBody Product product) {
 		this.productDao.save(product);
 		return new apiSuccessResult("Ürün veritabanına başarılı bir şekilde eklendi");
+	}
+
+
+	@Override
+	public apiDataResult<Product> getByProductName(String productName) {
+		return new apiDataSuccessResult<Product>
+		(this.productDao.getByProductName(productName),getSuccessMessage);
+	}
+
+
+	@Override
+	public apiDataResult<Product> getByProductNameAndCategoryId(String productName, int categoryId) {
+		return new apiDataSuccessResult<Product>
+		(this.productDao.getByProductNameAndCategoryId(productName, categoryId),getSuccessMessage);
+	}
+
+
+	@Override
+	public apiDataResult<List<Product>> getByProductNameOrCategoryId(String productName, int categoryId) {
+		return new apiDataSuccessResult<List<Product>>
+		(this.productDao.getByProductNameOrCategoryId(productName, categoryId),getSuccessMessage);
+	}
+
+
+	@Override
+	public apiDataResult<List<Product>> getByCategoryIdIn(List<Integer> categories) {
+		return new apiDataSuccessResult<List<Product>>
+		(this.productDao.getByCategoryIdIn(categories),getSuccessMessage);
+	}
+
+
+	@Override
+	public apiDataResult<List<Product>> getByProductNameContains(String productName) {
+		return new apiDataSuccessResult<List<Product>>
+		(this.productDao.getByProductNameContains(productName),getSuccessMessage);
+	}
+
+
+	@Override
+	public apiDataResult<List<Product>> getByProductNameStartsWith(String productName) {
+		return new apiDataSuccessResult<List<Product>>
+		(this.productDao.getByProductNameStartsWith(productName),getSuccessMessage);
+	}
+
+
+	@Override
+	public apiDataResult<List<Product>> getByNameAndCategory(String productName, int categoryId) {
+		return new apiDataSuccessResult<List<Product>>
+		(this.productDao.getByNameAndCategory(productName, categoryId),getSuccessMessage);
 	}
 
 }
