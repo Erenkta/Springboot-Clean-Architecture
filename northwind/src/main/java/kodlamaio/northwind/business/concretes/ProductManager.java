@@ -18,6 +18,7 @@ import kodlamaio.northwind.core.utilities.results.withoutData.apiResult;
 import kodlamaio.northwind.core.utilities.results.withoutData.apiSuccessResult;
 import kodlamaio.northwind.dataAccess.abstracts.ProductDao;
 import kodlamaio.northwind.entities.concretes.Product;
+import kodlamaio.northwind.entities.dtos.ProductWithCategoryDto;
 
 @Service
 public class ProductManager implements ProductService{
@@ -110,6 +111,12 @@ public class ProductManager implements ProductService{
 		Sort sorted = Sort.by(Sort.Direction.DESC,"productName"); //ikinci parametre hangi alana göre listeleneceğini belirler 
 		return new apiDataSuccessResult<List<Product>>
 		(this.productDao.findAll(sorted), getSuccessMessage); //burda da sort alan overload'ını kullanıdık
+	}
+
+
+	@Override
+	public apiDataResult<List<ProductWithCategoryDto>> getProductWithCategoryDetails() {
+		return new apiDataSuccessResult<List<ProductWithCategoryDto>>(this.productDao.getProductWithCategoryDetails(),getSuccessMessage);
 	}
 
 

@@ -13,6 +13,7 @@ import kodlamaio.northwind.business.abstracts.ProductService;
 import kodlamaio.northwind.core.utilities.results.withData.apiDataResult;
 import kodlamaio.northwind.core.utilities.results.withoutData.apiResult;
 import kodlamaio.northwind.entities.concretes.Product;
+import kodlamaio.northwind.entities.dtos.ProductWithCategoryDto;
 
 @RestController //CRUD işlemlerini gerçekleştireceğimiz controller
 @RequestMapping("/api/products/") //Bu adrese gelen requestleri bu controller karşılayacak
@@ -50,12 +51,16 @@ public class ProductsController {
 		return this.productService.getByProductNameContains(productName);
 	}
 	@GetMapping("getAllByPage")
-	public apiDataResult<List<Product>> getAllByPage(int pageNo,int pageSize){ //Neden requestParam kullanmadık
+	public apiDataResult<List<Product>> getAllByPage(@RequestParam int pageNo,@RequestParam int pageSize){ //Neden requestParam kullanmadık
 		return this.productService.getAllByPage(pageNo, pageSize);
 	}
 	@GetMapping("getAllDesc")
 	public apiDataResult<List<Product>> getAllSorted(){
 		return this.productService.getAllSorted();
+	}
+	@GetMapping("getProductWithCategoryDetails")
+	public apiDataResult<List<ProductWithCategoryDto>> getProductWithCategoryDetails(){
+		return this.productService.getProductWithCategoryDetails();
 	}
 
 }
